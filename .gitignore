@@ -1,0 +1,12 @@
+# Virtual environment
+parking-project-venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local database
+db.sqlite3
+
+# Mac system files
+.DS_Store
