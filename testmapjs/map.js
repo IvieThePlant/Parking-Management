@@ -1,4 +1,4 @@
-
+mapboxgl.accessToken = 'pk.eyJ1IjoiYm9iYnJvIiwiYSI6ImNtbW1sdWJrbTJjOTQycW9rbmt3bnlheDcifQ.C2hSvGbFdfvicyO69r0GmA'
 
 // Global map object
 const map = new mapboxgl.Map({
@@ -13,9 +13,17 @@ const map = new mapboxgl.Map({
 // https://docs.mapbox.com/mapbox-gl-js/guides/add-your-data/markers/
 const locations = [
   {
-    coordinates: [-93.2410242, 44.965489],
-    name: 'Parking lot 1'
-  }
+    coordinates: [-93.243197, 44.965065],
+    name: 'Lot D'
+  },
+  {
+    coordinates: [-93.241709, 44.964796],
+    name: 'Unknown Lot'
+  },
+  {
+    coordinates: [-93.237113, 44.965077],
+    name: 'Lot L'
+  },
   // ... more locations
 ];
 
