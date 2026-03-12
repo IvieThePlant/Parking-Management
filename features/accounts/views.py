@@ -1,11 +1,13 @@
 from django.shortcuts import render
 
 # Create your views here.
+#Import default
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import RegisterForm
 
+#Override register function to redirect user to specific pages.
 def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)

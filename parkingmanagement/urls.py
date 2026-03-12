@@ -25,5 +25,6 @@ urlpatterns = [
     path('', home_redirect),  # visiting "/" sends you to login
     path('admin/', admin.site.urls),
 
+#Login, Register and logout paths we defined in account.urls file
     path('accounts/', include('features.accounts.urls')),
 ]
