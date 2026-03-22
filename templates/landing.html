@@ -7,10 +7,10 @@
   <title>Augsburg Parking</title>
 </head>
 
-<body class="bg-gradient-to-br from-[#660033] to-[#2b0015] text-white">
+<body class="bg-gradient-to-br from-[#1a000d] via-[#2b0015] to-[#660033] to-[#2b0015] text-white">
 
 <!-- Navigation Bar -->
-<header class="absolute inset-x-0 top-0 z-50">
+<header class="fixed w-full top-0 z-50 backdrop-blur-xl bg-black/30 border-b border-white/10">
   <nav class="flex items-center justify-between p-6 lg:px-8">
     <div class="flex lg:flex-1">
       <a href="#" class="-m-1.5 p-1.5">
@@ -29,8 +29,9 @@
 <section class="relative min-h-screen flex items-center justify-center px-6 text-center">
 
   <div class="max-w-2xl">
-    <h1 class="text-5xl sm:text-7xl font-bold">
-      Augsburg Parking
+    <h1 class="text-5xl sm:text-7xl font-bold leading-tight">
+      Find parking<br/>
+      <span class="text-[#ff4d8d]">before you arrive</span>
     </h1>
 
     <p class="mt-6 text-lg text-gray-300">
@@ -38,18 +39,21 @@
     </p>
 
     <div class="mt-10 flex justify-center gap-6">
-      <a href="#" class="bg-[#666666] px-5 py-3 rounded-md font-semibold hover:bg-[#666666]">
+      <a href="#"
+         class="bg-[#660033] hover:bg-[#7a003d] px-6 py-3 rounded-xl font-semibold transition shadow-lg shadow-[#660033]/30">
         Get started
       </a>
-      <a href="#" class="font-semibold">
-        Learn more →
+
+      <a href="#features"
+         class="px-6 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition">
+        Learn more
       </a>
     </div>
   </div>
 </section>
 
 <!-- Features-->
-<section class="min-h-screen flex items-center px-6">
+<section class="py-24 px-6">
   <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
 
     <div>
@@ -65,17 +69,17 @@
 
       <div class="mt-10 space-y-6">
 
-        <div>
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10">
           <p class="font-semibold">Real-time availability</p>
           <p class="text-gray-400">See open spots instantly with live updates.</p>
         </div>
 
-        <div>
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10">
           <p class="font-semibold">Predictive parking</p>
           <p class="text-gray-400">Know when spots will open before you arrive.</p>
         </div>
 
-        <div>
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10">
           <p class="font-semibold">Navigation ready</p>
           <p class="text-gray-400">Get directions directly to your parking spot.</p>
         </div>
@@ -84,11 +88,15 @@
     </div>
 
     <!-- Image -->
-    <div>
-      <img
-        src="https://www.pngarts.com/files/6/Car-Parking-Transparent.png"
-        class="rounded-xl shadow-xl ring-1 ring-white/10"
-      >
+    <div class="flex justify-center">
+      <div class="relative">
+        <div class="absolute inset-0 bg-[#660033]/30 blur-3xl rounded-full"></div>
+
+        <img
+          src="https://www.pngarts.com/files/6/Car-Parking-Transparent.png"
+          class="relative rounded-2xl w-full max-w-md drop-shadow-2xl"
+        />
+      </div>
     </div>
 
   </div>
@@ -106,18 +114,18 @@
     <form class="mt-10 space-y-6 text-left">
 
       <input type="text" placeholder="First name"
-        class="w-full p-3 rounded bg-white/5 text-white outline-none">
+        class="w-full p-3 rounded bg-white/5 text-white outline-none border border-white/10 focus:border-[#660033]">
 
       <input type="text" placeholder="Last name"
-        class="w-full p-3 rounded bg-white/5 text-white outline-none">
+        class="w-full p-3 rounded bg-white/5 text-white outline-none border border-white/10 focus:border-[#660033]">
 
       <input type="email" placeholder="Email"
-        class="w-full p-3 rounded bg-white/5 text-white outline-none">
+        class="w-full p-3 rounded bg-white/5 text-white outline-none border border-white/10 focus:border-[#660033]">
 
       <textarea rows="4" placeholder="Message"
-        class="w-full p-3 rounded bg-white/5 text-white outline-none"></textarea>
+        class="w-full p-3 rounded bg-white/5 text-white outline-none border border-white/10 focus:border-[#660033]"></textarea>
 
-      <button class="w-full bg-[#666666] py-3 rounded font-semibold hover:bg-[#666666]">
+      <button class="w-full bg-[#660033] py-3 hover:bg-[#7a003d] rounded-xl font-semibold transition shadow-lg shadow-[#660033]/30">
         Send message
       </button>
 
