@@ -1,5 +1,9 @@
+# Python cache
 __pycache__/
+*.pyc
 
-.venv
-
+# Local database
 db.sqlite3
+
+# Mac system files
+.DS_Store

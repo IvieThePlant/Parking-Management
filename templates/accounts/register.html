@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#660033]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign-up</title>
+</head>
+<body class="h-full">
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img src="https://web.augsburg.edu/marcomm/logo/Augsburg_A_1-color_Maroon.jpg"
+         alt="Your Company" class="mx-auto h-10 w-auto" />
+    <h2 class="mt-10 text-center text-2xl leading-9 font-bold tracking-tight text-white">
+      Create your account
+    </h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+    <!-- Non-field errors -->
+    {% if form.non_field_errors %}
+      <ul class="mb-4 text-red-500 text-sm">
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <!-- Register Form -->
+    <form action="{% url 'register' %}" method="POST" class="space-y-6">
+      {% csrf_token %}
+
+      <!-- Name input -->
+      <div>
+        <label for="{{ form.name.id_for_label }}" class="block text-sm leading-6 font-medium text-gray-100">
+          Name
+        </label>
+        <div class="mt-2">
+          {{ form.name }}
+        </div>
+        {% if form.name.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.name.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+        <!-- Username input -->
+      <div>
+        <label for="{{ form.username.id_for_label }}" class="block text-sm leading-6 font-medium text-gray-100">
+          Username
+        </label>
+        <div class="mt-2">
+          {{ form.username }}
+        </div>
+        {% if form.username.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.username.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+        <!-- Email input -->
+      <div>
+        <label for="{{ form.email.id_for_label }}" class="block text-sm leading-6 font-medium text-gray-100">
+          Email
+        </label>
+        <div class="mt-2">
+          {{ form.email }}
+        </div>
+        {% if form.email.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.email.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Password input -->
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="{{ form.password1.id_for_label }}" class="block text-sm leading-6 font-medium text-gray-100">
+            Password
+          </label>
+        </div>
+        <div class="mt-2">
+          {{ form.password1 }}
+        </div>
+        {% if form.password1.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.password1.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+        <div>
+        <div class="flex items-center justify-between">
+          <label for="{{ form.password2.id_for_label }}" class="block text-sm leading-6 font-medium text-gray-100">
+            Password Confirmation
+          </label>
+        </div>
+        <div class="mt-2">
+          {{ form.password2 }}
+        </div>
+        {% if form.password2.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ form.password2.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Submit button -->
+      <div>
+        <button type="submit"
+                class="flex w-full justify-center rounded-md bg-[#000000] px-3 py-1.5 text-sm leading-6 font-semibold text-white hover:bg-[#666666] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+          Sign in
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</html>
