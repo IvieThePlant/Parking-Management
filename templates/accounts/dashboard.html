@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Augsburg Parking</title>
+  <style>
+
+    /* Base */
+    body {
+      background: linear-gradient(to bottom right, #1a000d, #2b0015, #1a000d);
+      color: white;
+      min-height: 100vh;
+      font-family: sans-serif;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 100%;
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(20px);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px;
+      margin-bottom: 32px;
+    }
+
+    .sidebar-logo img {
+      height: 32px;
+      width: auto;
+    }
+
+    .sidebar-logo .title {
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+
+    .sidebar-logo .subtitle {
+      font-size: 0.75rem;
+      color: #ff4d8d;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      margin-bottom: 4px;
+      transition: background 0.15s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255,255,255,0.05);
+      color: white;
+    }
+
+    .nav-link.active {
+      background: rgba(102,0,51,0.5);
+      border: 1px solid rgba(255,77,141,0.2);
+      color: white;
+    }
+
+    .report-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: #660033;
+      border: 1px solid rgba(255,77,141,0.3);
+      color: white;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .report-btn:hover {
+      background: #7a003d;
+    }
+
+    /* Main */
+    .main {
+      margin-left: 240px;
+      padding: 32px;
+    }
+
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 32px;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 1.875rem;
+      font-weight: 700;
+    }
+
+    .stat-note {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 4px;
+    }
+
+    /* Lots */
+    .lots-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .lots-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+
+    .lots-note {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+
+    .lots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .lot-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .lot-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .lot-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+    }
+
+    .lot-type {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 2px;
+    }
+
+    .lot-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.3);
+    }
+
+    .lot-count {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .lot-bar {
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.1);
+      margin-top: 12px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <img src="https://web.augsburg.edu/marcomm/logo/Augsburg_A_1-color_Maroon.jpg" alt="Augsburg">
+      <div>
+        <div class="title">Augsburg</div>
+        <div class="subtitle">Parking Portal</div>
+      </div>
+    </div>
+
+    <nav style="flex:1;">
+      <a href="#" class="nav-link active">🅿️ Overview</a>
+      <a href="#" class="nav-link">🗺️ Campus Map</a>
+      <a href="#" class="nav-link">📋 My Reports</a>
+    </nav>
+
+    <button class="report-btn">+ Report a Spot</button>
+
+  </aside>
+
+
+  <!-- Main -->
+  <main class="main">
+
+    <h1 class="page-title">Parking Overview</h1>
+    <p class="page-subtitle">Augsburg University · Cedar-Riverside, Minneapolis</p>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Available Now</div>
+        <div class="stat-value">—</div>
+        <div class="stat-note">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Capacity</div>
+        <div class="stat-value">—</div>
+        <div class="stat-note">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Reports Today</div>
+        <div class="stat-value">0</div>
+        <div class="stat-note">No reports yet</div>
+      </div>
+    </div>
+
+    <!-- Lots -->
+    <div class="lots-header">
+      <h2 class="lots-title">Parking Lots</h2>
+      <span class="lots-note">Spot counts pending</span>
+    </div>
+
+    <div class="lots-grid">
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot A</div>
+            <div class="lot-type">Visitor Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot B</div>
+            <div class="lot-type">Resident Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot C</div>
+            <div class="lot-type">Commuter Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot D</div>
+            <div class="lot-type">Faculty/Staff/Commuter/Res.</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot E</div>
+            <div class="lot-type">Resident Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot F</div>
+            <div class="lot-type">Resident Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot G</div>
+            <div class="lot-type">Faculty/Staff Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot H</div>
+            <div class="lot-type">Guest/Metered Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot J</div>
+            <div class="lot-type">Faculty/Staff Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot K</div>
+            <div class="lot-type">Commuter Parking</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Lot L</div>
+            <div class="lot-type">Faculty/Staff/Commuter/Res.</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+      <div class="lot-card">
+        <div class="lot-card-header">
+          <div>
+            <div class="lot-name">Street</div>
+            <div class="lot-type">2-Hour Limit · 22nd Ave S</div>
+          </div>
+          <span class="lot-badge">TBD</span>
+        </div>
+        <div class="lot-count">—</div>
+        <div class="lot-bar"></div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
