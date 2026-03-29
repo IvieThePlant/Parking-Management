@@ -44,6 +44,11 @@ INSTALLED_APPS = [
 
     #connect subfolder account to main application.
     'features.accounts',
+    
+    # neets to be installed to work (idk why yet)
+    'rest_framework',
+    
+    'parking',
 ]
 
 MIDDLEWARE = [
