@@ -7,3 +7,13 @@ class ParkingLot(models.Model):
 
     def __str__(self):
         return self.name
+    
+class ParkingSpot(models.Model):
+    lot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE, related_name='spots')
+    spot_number = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    avaliable = models.BooleanField()
+
+    def __str__(self):
+        return f"{self.lot.name} - Spot {self.spot_number}"
