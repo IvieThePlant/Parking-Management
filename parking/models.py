@@ -13,7 +13,7 @@ class ParkingSpot(models.Model):
     spot_number = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    avaliable = models.BooleanField()
+    available = models.BooleanField()
 
     def __str__(self):
         return f"{self.lot.name} - Spot {self.spot_number}"
