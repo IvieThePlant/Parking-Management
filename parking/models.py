@@ -27,3 +27,8 @@ class ParkingSession(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    def __str__(self) -> str:
+        if self.ended_at is None:
+            return f"{self.user.username} parked in spot {self.spot} at {self.occupied_at}"
+        else:
+            return f"{self.user.username} parked in spot {self.spot} from {self.occupied_at} to {self.ended_at}"
