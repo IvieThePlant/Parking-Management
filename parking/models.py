@@ -17,3 +17,6 @@ class ParkingSpot(models.Model):
 
     def __str__(self):
         return f"{self.lot.name} - Spot {self.spot_number}"
+    
+class ParkingSession(models.Model):
+    pass
