@@ -20,8 +20,8 @@ class ParkingSpot(models.Model):
         return f"{self.lot.name} - Spot {self.spot_number}"
     
 class ParkingSession(models.Model):
-    lot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE, related_name='sessions')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='parking_sessions')
     occupied_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
