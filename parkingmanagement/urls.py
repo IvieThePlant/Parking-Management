@@ -29,4 +29,7 @@ urlpatterns = [
 
     #Login, Register and logout paths we defined in account.urls file
     path('accounts/', include('features.accounts.urls')),
+
+    #Parking API URLS
+    path('api/', include('parking.urls')),
 ]
