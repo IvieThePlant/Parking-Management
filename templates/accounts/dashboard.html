@@ -40,6 +40,11 @@
       + Report a Spot
     </button>
 
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">Log Out</button>
+    </form>
+
   </aside>
 
   <!-- Main -->

@@ -129,6 +129,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/accounts/dashboard/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/'
