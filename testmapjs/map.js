@@ -14,15 +14,22 @@ const map = new mapboxgl.Map({
 const locations = [
   {
     coordinates: [-93.243197, 44.965065],
-    name: 'Lot D'
+    name: 'Lot D',
+    spotsTaken: 23,
+    totalSpots: 30
+
   },
   {
     coordinates: [-93.241709, 44.964796],
-    name: 'Unknown Lot'
+    name: 'Unknown Lot',
+    spotsTaken: 8,
+    totalSpots: 20
   },
   {
     coordinates: [-93.237113, 44.965077],
-    name: 'Lot L'
+    name: 'Lot L',
+    spotsTaken: 15,
+    totalSpots: 30
   },
   // ... more locations
 ];
@@ -32,9 +39,22 @@ map.addControl(new mapboxgl.NavigationControl());
 // Functions should be in asynchronous func or it may not be called
 map.on('load', () => {
     locations.forEach(location => {
-        new mapboxgl.Marker()
+        new mapboxgl.Marker({color: setColorBasedOnSpots(location.spotsTaken, location.totalSpots)})
           .setLngLat(location.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${location.name}</h3>`))
+          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${location.name}</h3>
+            <h3>${location.spotsTaken}/${location.totalSpots} spots taken</h3>
+            <button type="button" id="myButton">Park Here</button>`))
           .addTo(map);
     });
 });
+
+function setColorBasedOnSpots(spotsTaken, totalSpots) {
+    const ratio = spotsTaken / totalSpots;
+    if (ratio < 0.5) {
+        return "#00FF00"; // Green
+    } else if (ratio < 0.8) {
+        return "#FFFF00"; // Yellow
+    } else {
+        return "#FF0000"; // Red
+    }
+}
