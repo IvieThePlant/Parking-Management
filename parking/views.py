@@ -4,7 +4,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import ParkingLot, ParkingSpot, ParkingSession
-from .service import ParkingSessionToJSON
 
 # Create your views here.
 # Useful Documentation: https://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme
