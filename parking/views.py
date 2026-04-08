@@ -1,7 +1,5 @@
-
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from django.utils import timezone
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -17,14 +15,14 @@ from .models import ParkingLot, ParkingSpot, ParkingSession
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def createSession(request):
+def create_session(request):
     user=request.user
     spot_number = request.data.get('spot_number')
     lot = request.data.get('lot_name')
 
     #Check to see if request includes spot_number, end_time and lot_name in body (Tested Using PostMan)
     if not spot_number or not lot:
-        return Response({"ERROR : spot_number & lot_name is needed in body"}, status=400)
+        return Response({"ERROR": "spot_number & lot_name is needed in body"}, status=400)
 
     try:
         #GET BY SPOT_NUMBER AND LOT_NAME INSTEAD OF ID( __ )
@@ -32,7 +30,7 @@ def createSession(request):
 
         # Check to see if spot is available
         if not spot.available:
-            return Response({"ERROR : Spot is not available"}, status=400)
+            return Response({"ERROR": "Spot is not available"}, status=400)
 
         # Create Session
         #(TESTING USER) temp_user = User.objects.get(username="Temp")
@@ -57,45 +55,36 @@ def createSession(request):
 
     except ParkingSpot.DoesNotExist:
         # Return sessions as JSON
-        return Response({"ERROR : Spot not found"}, status=404)
+        return Response({"ERROR": "Spot not found"}, status=404)
 
-# Update Session using POST
-# URL - {domainName}/api/sessions/update/
-# BODY - {"session_id" : ?, "status": ?}
-# RESPONSE (JSON) - {{result}}
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def endSession(request):
-    user = request.user
-    session_id = request.data.get('session_id')
-    status = request.data.get('status')
+def get_generic_lot_info(request):
+    """
+    Summary:
+    Gets all lot info
 
-    # Validate input
-    if not session_id or not status:
-        return Response({"ERROR : session_id & status is needed in body"}, status=400)
+    Parameters:
+    arg1 (request): Http request
 
-    try:
-        # (TESTING USER) temp_user = User.objects.get(username="Temp")
-        session = ParkingSession.objects.get(id=session_id, user=user)
+    Returns:
+    Response: JSON obj and status (200, 400, 404, etc)
 
-        # Update session status
-        session.status = status
+    """
 
-        # If session == completed free up the spot
-        if status.lower() == 'completed':
-            session.end_time = timezone.now()
+    if not lot:
+        return Response({"ERROR": "No lots available"}, status = 400)
 
-            spot = session.spot
-            spot.available = True
-            spot.save()
+    # Runs multiple queries
+    lots = ParkingLot.objects.all()
 
-        session.save()
+    result = []
+    for lot in lots:
+        result.append({
+            'lot_id': lot.id,
+            'lot_name': lot.name,
+            'total_spots': lot.spots.count()
+        })
 
-        return Response({
-            'session_id': session.id,
-            'status': session.status,
-            'end_time': session.end_time
-        }, status=200)
+    return Response(result, status = 200)
 
-    except ParkingSession.DoesNotExist:
-        return Response({"ERROR : Session not found"}, status=404)
