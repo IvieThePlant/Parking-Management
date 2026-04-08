@@ -15,7 +15,7 @@ from .models import ParkingLot, ParkingSpot, ParkingSession
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def createSession(request):
+def create_session(request):
     user=request.user
     spot_number = request.data.get('spot_number')
     lot = request.data.get('lot_name')
@@ -56,3 +56,35 @@ def createSession(request):
     except ParkingSpot.DoesNotExist:
         # Return sessions as JSON
         return Response({"ERROR": "Spot not found"}, status=404)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_generic_lot_info(request):
+    """
+    Summary: 
+    Gets all lot info
+
+    Parameters:
+    arg1 (request): Http request
+
+    Returns:
+    Response: JSON obj and status (200, 400, 404, etc)
+    
+    """
+
+    if not lot:
+        return Response({"ERROR": "No lots available"}, status = 400)
+    
+    # Runs multiple queries 
+    lots = ParkingLot.objects.all()
+
+    result = []
+    for lot in lots:
+        result.append({
+            'lot_id': lot.id,
+            'lot_name': lot.name,
+            'total_spots': lot.spots.count()
+        })
+    
+    return Response(result, status = 200)
+    
