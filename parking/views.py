@@ -1,5 +1,7 @@
+
 from django.contrib.auth.models import User
 from django.shortcuts import render
+from django.utils import timezone
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -22,7 +24,7 @@ def createSession(request):
 
     #Check to see if request includes spot_number, end_time and lot_name in body (Tested Using PostMan)
     if not spot_number or not lot:
-        return Response({"ERROR": "spot_number & lot_name is needed in body"}, status=400)
+        return Response({"ERROR : spot_number & lot_name is needed in body"}, status=400)
 
     try:
         #GET BY SPOT_NUMBER AND LOT_NAME INSTEAD OF ID( __ )
@@ -30,7 +32,7 @@ def createSession(request):
 
         # Check to see if spot is available
         if not spot.available:
-            return Response({"ERROR": "Spot is not available"}, status=400)
+            return Response({"ERROR : Spot is not available"}, status=400)
 
         # Create Session
         #(TESTING USER) temp_user = User.objects.get(username="Temp")
@@ -55,4 +57,45 @@ def createSession(request):
 
     except ParkingSpot.DoesNotExist:
         # Return sessions as JSON
-        return Response({"ERROR": "Spot not found"}, status=404)
+        return Response({"ERROR : Spot not found"}, status=404)
+
+# Update Session using POST
+# URL - {domainName}/api/sessions/update/
+# BODY - {"session_id" : ?, "status": ?}
+# RESPONSE (JSON) - {{result}}
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def endSession(request):
+    user = request.user
+    session_id = request.data.get('session_id')
+    status = request.data.get('status')
+
+    # Validate input
+    if not session_id or not status:
+        return Response({"ERROR : session_id & status is needed in body"}, status=400)
+
+    try:
+        # (TESTING USER) temp_user = User.objects.get(username="Temp")
+        session = ParkingSession.objects.get(id=session_id, user=user)
+
+        # Update session status
+        session.status = status
+
+        # If session == completed free up the spot
+        if status.lower() == 'completed':
+            session.end_time = timezone.now()
+
+            spot = session.spot
+            spot.available = True
+            spot.save()
+
+        session.save()
+
+        return Response({
+            'session_id': session.id,
+            'status': session.status,
+            'end_time': session.end_time
+        }, status=200)
+
+    except ParkingSession.DoesNotExist:
+        return Response({"ERROR : Session not found"}, status=404)
