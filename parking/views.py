@@ -65,7 +65,7 @@ def create_session(request):
 """
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def endSession(request):
+def end_session(request):
     user = request.user
     session_id = request.data.get('session_id')
     status = request.data.get('status')

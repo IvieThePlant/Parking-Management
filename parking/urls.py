@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
 
     # API endpoints
-    path('sessions/create/', views.createSession),
-    path('sessions/update/', views.updateSessionStatus)
+    path('sessions/create/', views.create_session),
+    path('sessions/update/', views.end_session)
 ]
