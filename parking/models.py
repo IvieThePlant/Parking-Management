@@ -11,18 +11,8 @@ class ParkingLot(models.Model):
     def __str__(self):
         return self.name
     
-class ParkingSpot(models.Model):
-    lot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE, related_name='spots')
-    spot_number = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    available = models.BooleanField()
-
-    def __str__(self):
-        return f"{self.lot.name} - Spot {self.spot_number}"
-    
 class ParkingSession(models.Model):
-    spot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE, related_name='sessions')
+    spot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE, related_name='sessions')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='parking_sessions')
     occupied_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
