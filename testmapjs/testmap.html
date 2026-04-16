@@ -7,14 +7,70 @@
     <title>Guides</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.19.1/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.19.1/mapbox-gl.js"></script>
+    
     <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
     </style>
     </head>
     <body>
+
     <div id="map"></div>
-    <script src="map.js"></script>
-    </body>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYm9iYnJvIiwiYSI6ImNtbW1sdWJrbTJjOTQycW9rbmt3bnlheDcifQ.C2hSvGbFdfvicyO69r0GmA';
+
+        const locations = [
+            { coordinates: [-93.242878, 44.964812], name: 'Lot A', spotsTaken: 10, totalSpots: 30 },
+            { coordinates: [-93.241709, 44.964796], name: 'Lot B', spotsTaken: 8, totalSpots: 20 },
+            { coordinates: [-93.243197, 44.965065], name: 'Lot D', spotsTaken: 23, totalSpots: 30 },
+            { coordinates: [-93.242081, 44.965318], name: 'Lot E', spotsTaken: 5, totalSpots: 20 },
+            { coordinates: [-93.242024, 44.967266], name: 'Lot G', spotsTaken: 18, totalSpots: 30 },
+            { coordinates: [-93.239643, 44.966379], name: 'Lot J', spotsTaken: 20, totalSpots: 30 },
+            { coordinates: [-93.238787, 44.966341], name: 'Lot K', spotsTaken: 12, totalSpots: 20 },
+            { coordinates: [-93.237113, 44.965077], name: 'Lot L', spotsTaken: 15, totalSpots: 60 }
+        ];
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/standard',
+            projection: 'globe',
+            zoom: 15,
+            center: [-93.24076, 44.967375]
+        });
+
+        map.addControl(new mapboxgl.NavigationControl());
+
+        function setColorBasedOnSpots(spotsTaken, totalSpots) {
+            const ratio = spotsTaken / totalSpots;
+            if (ratio < 0.5) return "#00FF00"; // Green
+            if (ratio < 0.8) return "#FFFF00"; // Yellow
+            return "#FF0000"; // Red
+        }
+
+        map.on('load', () => {
+            locations.forEach(location => {
+                new mapboxgl.Marker({ color: setColorBasedOnSpots(location.spotsTaken, location.totalSpots) })
+                    .setLngLat(location.coordinates)
+                    .setPopup(new mapboxgl.Popup().setHTML(`
+                        <h3>${location.name}</h3>
+                        <p>${location.spotsTaken}/${location.totalSpots} spots taken</p>
+                        <button class="park-btn" data-lot="${location.name}">Park Here</button>
+                    `))
+                    .addTo(map);
+            });
+        });
+
+        // Handle button clicks inside popups (Event Delegation)
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('park-btn')) {
+                const lotName = e.target.getAttribute('data-lot');
+                alert(`You have selected to park in ${lotName}!`);
+            }
+        });
+    </script>
+</body>
+</html>
 </html>
