@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Augsburg Parking Dashboard</title>
+</head>
+<body>
+
+  <h1>Dashboard</h1>
+  <p>Welcome, {{ user.username }}</p>
+
+  <h2>Parking Lots</h2>
+  <ul>
+    <li>Lot A - Visitor Parking</li>
+    <li>Lot B - Resident Parking</li>
+    <li>Lot C - Commuter Parking</li>
+    <li>Lot D - Faculty/Staff/Commuter/Resident Parking</li>
+    <li>Lot E - Resident Parking</li>
+    <li>Lot F - Resident Parking</li>
+    <li>Lot G - Faculty/Staff Parking</li>
+    <li>Lot H - Guest/Metered Parking</li>
+    <li>Lot J - Faculty/Staff Parking</li>
+    <li>Lot K - Commuter Parking</li>
+    <li>Lot L - Faculty/Staff/Commuter/Resident Parking</li>
+    <li>Street - 2-Hour Limit · 22nd Ave S</li>
+  </ul>
+
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+  </form>
+
+</body>
+</html>
