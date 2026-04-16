@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <title>Login</title>
 </head>
 <body class="h-full">
@@ -68,19 +69,16 @@
 
     </form>
 
-    <!-- Logout Button -->
-    {% if user.is_authenticated %}
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit"
-                class="flex w-full justify-center rounded-md bg-[#000000] px-3 py-1.5 text-sm leading-6 font-semibold text-white hover:bg-[#666666] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-            Logout
-        </button>
-    </form>
-    {% endif %}
+    <!-- Register button takes you to register.html -->
+    <p class="mt-10 text-center text-sm text-gray-400">
+      Don't have an account?
+      <a href="{% url 'register' %}" class="font-semibold leading-6 text-white hover:text-gray-300">
+        Sign up
+      </a>
+
+
 
   </div>
 </div>
 </body>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </html>
