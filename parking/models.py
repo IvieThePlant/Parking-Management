@@ -23,9 +23,10 @@ class ParkingSpot(models.Model):
 class ParkingSession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     lot = models.ForeignKey('ParkingLot', on_delete=models.CASCADE)
+    license_plate = models.CharField(max_length=20)
     started_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
-    available = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.user} - Lot {self.lot.name} - started_at {self.started_at} - ended_at {self.ended_at} - available {self.available}"
