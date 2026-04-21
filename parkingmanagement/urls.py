@@ -17,16 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from django.shortcuts import redirect
+from parking import views as parking_views
 
-def home_redirect(request):
-    return redirect('login')
 
 urlpatterns = [
-    path('', home_redirect),  # visiting "/" sends you to login
+    path('', TemplateView.as_view(template_name='landing.html'), name='landing'),
     path('admin/', admin.site.urls),
-    path("", TemplateView.as_view(template_name="landing.html")),
-
-    #Login, Register and logout paths we defined in account.urls file
     path('accounts/', include('features.accounts.urls')),
+    path('dashboard/', parking_views.dashboard_view, name='dashboard'),
 ]
