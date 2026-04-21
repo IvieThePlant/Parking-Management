@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 import datetime
 from django.utils import timezone
 
@@ -13,7 +13,7 @@ class ParkingLot(models.Model):
     
 class ParkingSession(models.Model):
     lot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE, related_name='parking_sessions')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='parking_sessions')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='parking_sessions')
     occupied_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
