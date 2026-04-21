@@ -17,13 +17,13 @@ class ParkingSessionModelTests(TestCase):
 		cls.lot = ParkingLot.objects.create(name='Lot A')
 
 	def test_new_session_is_active(self):
-		session = ParkingSession.objects.create(spot=self.lot, user=self.user)
+		session = ParkingSession.objects.create(lot=self.lot, user=self.user)
 
 		self.assertIsNone(session.ended_at)
 		self.assertTrue(session.is_active)
 
 	def test_end_session_sets_ended_at(self):
-		session = ParkingSession.objects.create(spot=self.lot, user=self.user)
+		session = ParkingSession.objects.create(lot=self.lot, user=self.user)
 
 		session.end_session()
 
@@ -34,7 +34,7 @@ class ParkingSessionModelTests(TestCase):
 		occupied_at = timezone.now() - datetime.timedelta(hours=3)
 		ended_at = occupied_at + datetime.timedelta(hours=2, minutes=15)
 
-		session = ParkingSession.objects.create(spot=self.lot, user=self.user)
+		session = ParkingSession.objects.create(lot=self.lot, user=self.user)
 		session.occupied_at = occupied_at
 		session.ended_at = ended_at
 		session.save(update_fields=['occupied_at', 'ended_at'])

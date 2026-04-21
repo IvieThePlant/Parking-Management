@@ -12,7 +12,7 @@ class ParkingLot(models.Model):
         return self.name
     
 class ParkingSession(models.Model):
-    spot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE, related_name='sessions')
+    lot = models.ForeignKey(ParkingLot, on_delete=models.CASCADE, related_name='parking_sessions')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='parking_sessions')
     occupied_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
@@ -36,6 +36,6 @@ class ParkingSession(models.Model):
     
     def __str__(self) -> str:
         if self.ended_at is None:
-            return f"{self.user.username} parked in spot {self.spot} at {self.occupied_at}"
+            return f"{self.user.username} parked in lot {self.lot} at {self.occupied_at}"
         else:
-            return f"{self.user.username} parked in spot {self.spot} from {self.occupied_at} to {self.ended_at}"
+            return f"{self.user.username} parked in lot {self.lot} from {self.occupied_at} to {self.ended_at}"
