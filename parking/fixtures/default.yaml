@@ -93,3 +93,30 @@ DEFAULT_TS: &default_ts '2026-04-22T08:00:00Z'
     name: Lot L
     created_at: *default_ts
     updated_at: *default_ts
+
+- model: parking.parkingsession
+  pk: 1
+  fields:
+    lot: 1
+    user: 1
+    occupied_at: '2026-04-22T10:00:00Z'
+    ended_at: null
+    updated_at: '2026-04-22T10:00:00Z'
+
+- model: parking.parkingsession
+  pk: 2
+  fields:
+    lot: 2
+    user: 2
+    occupied_at: '2026-04-22T09:30:00Z'
+    ended_at: '2026-04-22T11:00:00Z'
+    updated_at: '2026-04-22T11:00:00Z'
+
+- model: parking.parkingsession
+  pk: 3
+  fields:
+    lot: 3
+    user: 3
+    occupied_at: '2026-04-21T14:20:00Z'
+    ended_at: '2026-04-21T16:45:00Z'
+    updated_at: '2026-04-21T16:45:00Z'
