@@ -5,7 +5,7 @@
     email: testuser1@example.com
     first_name: Test
     last_name: User One
-    password: !FAKE_LOGIN
+    password: FAKE_LOGIN
     is_staff: false
     is_active: true
     is_superuser: false
@@ -17,7 +17,7 @@
     email: testuser2@example.com
     first_name: Test
     last_name: User Two
-    password: !FAKE_LOGIN
+    password: FAKE_LOGIN
     is_staff: false
     is_active: true
     is_superuser: false
@@ -29,7 +29,7 @@
     email: testuser3@example.com
     first_name: Test
     last_name: User Three
-    password: !FAKE_LOGIN
+    password: FAKE_LOGIN
     is_staff: false
     is_active: true
     is_superuser: false
