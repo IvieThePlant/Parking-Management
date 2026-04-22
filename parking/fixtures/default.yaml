@@ -2,6 +2,42 @@
 DEFAULT_TS: &default_ts '2026-04-22T08:00:00Z'
 ---
 
+- model: auth.user
+  pk: 1
+  fields:
+    username: testuser1
+    email: testuser1@example.com
+    first_name: Test
+    last_name: User One
+    password: FAKE_LOGIN
+    is_staff: false
+    is_active: true
+    is_superuser: false
+
+- model: auth.user
+  pk: 2
+  fields:
+    username: testuser2
+    email: testuser2@example.com
+    first_name: Test
+    last_name: User Two
+    password: FAKE_LOGIN
+    is_staff: false
+    is_active: true
+    is_superuser: false
+
+- model: auth.user
+  pk: 3
+  fields:
+    username: testuser3
+    email: testuser3@example.com
+    first_name: Test
+    last_name: User Three
+    password: FAKE_LOGIN
+    is_staff: false
+    is_active: true
+    is_superuser: false
+
 - model: parking.parkinglot
   pk: 1
   fields:
