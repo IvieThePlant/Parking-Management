@@ -13,7 +13,6 @@ const map = new mapboxgl.Map({
 // https://docs.mapbox.com/mapbox-gl-js/guides/add-your-data/markers/
 const locations = [
   {
-<<<<<<< HEAD
     coordinates: [-93.242878, 44.964812],
     name: 'Lot A',
     spotsTaken: 10,
@@ -26,8 +25,6 @@ const locations = [
     totalSpots: 20
   },
   {
-=======
->>>>>>> 993c6a2b9fc58b166bae6d5be6c5349771256400
     coordinates: [-93.243197, 44.965065],
     name: 'Lot D',
     spotsTaken: 23,
@@ -35,7 +32,6 @@ const locations = [
 
   },
   {
-<<<<<<< HEAD
     coordinates: [-93.242081, 44.965318],
     name: 'Lot E',
     spotsTaken: 5,
@@ -57,24 +53,14 @@ const locations = [
     coordinates: [-93.238787,44.966341],
     name: 'Lot K',
     spotsTaken: 12,
-=======
-    coordinates: [-93.241709, 44.964796],
-    name: 'Unknown Lot',
-    spotsTaken: 8,
->>>>>>> 993c6a2b9fc58b166bae6d5be6c5349771256400
     totalSpots: 20
   },
   {
     coordinates: [-93.237113, 44.965077],
     name: 'Lot L',
     spotsTaken: 15,
-<<<<<<< HEAD
     totalSpots: 60
   },
-=======
-    totalSpots: 30
-  }
->>>>>>> 993c6a2b9fc58b166bae6d5be6c5349771256400
   // ... more locations
 ];
 
@@ -101,8 +87,4 @@ function setColorBasedOnSpots(spotsTaken, totalSpots) {
     } else {
         return "#FF0000"; // Red
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 993c6a2b9fc58b166bae6d5be6c5349771256400
