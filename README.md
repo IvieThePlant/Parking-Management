@@ -41,6 +41,13 @@ If you encounter database-related errors (missing tables or issues inserting dat
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+To initialize the database with sample data, run:
+
+```shell
+python manage.py loaddata parking/fixtures/default
+```
+
 ### 4. Running the Development Server
 To start the application and view it in your browser, run:
 ```shell
