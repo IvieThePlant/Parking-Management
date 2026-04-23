@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head><title>Settings</title></head>
+<body>
+
+  <h1>Settings</h1>
+  <p>{{ user.username }}</p>
+
+  <h2>Change Name</h2>
+  <form method="POST" action="{% url 'change_name' %}">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="New name" value="{{ user.first_name }}">
+    <button type="submit">Update Name</button>
+  </form>
+
+  <h2>Change Password</h2>
+  <form method="POST" action="{% url 'change_password' %}">
+    {% csrf_token %}
+    <input type="password" name="old_password" placeholder="Current password">
+    <input type="password" name="new_password1" placeholder="New password">
+    <input type="password" name="new_password2" placeholder="Confirm new password">
+    <button type="submit">Update Password</button>
+  </form>
+
+  <h2>Delete Account</h2>
+  <form method="POST" action="{% url 'delete_account' %}">
+    {% csrf_token %}
+    <button type="submit">Delete Account</button>
+  </form>
+
+  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+
+</body>
+</html>
