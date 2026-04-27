@@ -68,16 +68,11 @@
 
     </form>
 
-    <!-- Logout Button -->
-    {% if user.is_authenticated %}
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit"
-                class="flex w-full justify-center rounded-md bg-[#000000] px-3 py-1.5 text-sm leading-6 font-semibold text-white hover:bg-[#666666] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-            Logout
-        </button>
-    </form>
-    {% endif %}
+    <p class="mt-6 text-center text-sm text-gray-300">
+      Don't have an account?
+      <a href="{% url 'register' %}" class="text-white font-semibold hover:text-gray-300">Sign up</a>
+    </p>
+
 
   </div>
 </div>

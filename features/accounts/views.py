@@ -7,6 +7,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import RegisterForm
 
+from django.contrib.auth.forms import AuthenticationForm
+
+class StyledAuthenticationForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({
+                'class': 'block w-full rounded-md bg-white px-3 py-2 text-gray-900 text-sm outline outline-1 outline-gray-300'
+            })
+
 #Override register function to redirect user to specific pages.
 def register_view(request):
     if request.method == "POST":
