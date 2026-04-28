@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Campus Map</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.19.1/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  {{ locations|json_script:"locations-data" }}
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYm9iYnJvIiwiYSI6ImNtbW1sdWJrbTJjOTQycW9rbmt3bnlheDcifQ.C2hSvGbFdfvicyO69r0GmA';
+
+    const locations = JSON.parse(document.getElementById('locations-data').textContent);
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/standard',
+      projection: 'globe',
+      zoom: 15,
+      center: [-93.24076, 44.967375]
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    function setColorBasedOnSpots(spotsTaken, totalSpots) {
+      const ratio = spotsTaken / totalSpots;
+      if (ratio < 0.5) return "#00FF00";
+      if (ratio < 0.8) return "#FFFF00";
+      return "#FF0000";
+    }
+
+    map.on('load', () => {
+      locations.forEach(location => {
+        new mapboxgl.Marker({ color: setColorBasedOnSpots(location.spotsTaken, location.totalSpots) })
+          .setLngLat(location.coordinates)
+          .setPopup(new mapboxgl.Popup().setHTML(`
+            <h3>${location.name}</h3>
+            <p>${location.spotsTaken}/${location.totalSpots} spots taken</p>
+            <button class="park-btn" data-lot="${location.name}">Park Here</button>
+          `))
+          .addTo(map);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.classList.contains('park-btn')) {
+        const lotName = e.target.getAttribute('data-lot');
+        alert(`Parking in ${lotName}`);
+      }
+    });
+  </script>
+</body>
+</html>
