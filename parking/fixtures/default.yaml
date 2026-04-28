@@ -1,0 +1,118 @@
+- model: auth.user
+  pk: 1
+  fields:
+    username: testuser1
+    email: testuser1@example.com
+    first_name: Test
+    last_name: User One
+    password: FAKE_LOGIN
+    is_staff: false
+    is_active: true
+    is_superuser: false
+
+- model: auth.user
+  pk: 2
+  fields:
+    username: testuser2
+    email: testuser2@example.com
+    first_name: Test
+    last_name: User Two
+    password: FAKE_LOGIN
+    is_staff: false
+    is_active: true
+    is_superuser: false
+
+- model: auth.user
+  pk: 3
+  fields:
+    username: testuser3
+    email: testuser3@example.com
+    first_name: Test
+    last_name: User Three
+    password: FAKE_LOGIN
+    is_staff: false
+    is_active: true
+    is_superuser: false
+
+- model: parking.parkinglot
+  pk: 1
+  fields:
+    name: Lot A
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkinglot
+  pk: 2
+  fields:
+    name: Lot B
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkinglot
+  pk: 3
+  fields:
+    name: Lot D
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkinglot
+  pk: 4
+  fields:
+    name: Lot E
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkinglot
+  pk: 5
+  fields:
+    name: Lot G
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkinglot
+  pk: 6
+  fields:
+    name: Lot J
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkinglot
+  pk: 7
+  fields:
+    name: Lot K
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkinglot
+  pk: 8
+  fields:
+    name: Lot L
+    created_at: '2026-04-22T08:00:00Z'
+    updated_at: '2026-04-22T08:00:00Z'
+
+- model: parking.parkingsession
+  pk: 1
+  fields:
+    lot: 1
+    user: 1
+    occupied_at: '2026-04-22T10:00:00Z'
+    ended_at: null
+    updated_at: '2026-04-22T10:00:00Z'
+
+- model: parking.parkingsession
+  pk: 2
+  fields:
+    lot: 2
+    user: 2
+    occupied_at: '2026-04-22T09:30:00Z'
+    ended_at: '2026-04-22T11:00:00Z'
+    updated_at: '2026-04-22T11:00:00Z'
+
+- model: parking.parkingsession
+  pk: 3
+  fields:
+    lot: 3
+    user: 3
+    occupied_at: '2026-04-21T14:20:00Z'
+    ended_at: '2026-04-21T16:45:00Z'
+    updated_at: '2026-04-21T16:45:00Z'
