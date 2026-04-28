@@ -26,5 +26,4 @@ urlpatterns = [
     path('accounts/', include('features.accounts.urls')),
     path('dashboard/', parking_views.dashboard_view, name='dashboard'),
     path('dashboard/map/', parking_views.map_view, name='map'),
-    path('create-session/', parking_views.create_session, name='create_session'),
 ]
