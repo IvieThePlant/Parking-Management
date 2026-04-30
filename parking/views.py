@@ -14,6 +14,20 @@ def dashboard_view(request):
     lots = ParkingLot.objects.all()
     return render(request, 'parking/dashboard.html', {'lots': lots})
 
+@login_required
+def my_sessions(request):
+    sessions = ParkingSession.objects.filter(user=request.user)
+
+    lots = ParkingLot.objects.all()
+    active_sessions = sessions.filter(ended_at__isnull=True).order_by('occupied_at')
+    previous_sessions = sessions.filter(ended_at__isnull=False).order_by('ended_at')
+
+    return render(request, 'parking/mysessions.html', {
+        'active_sessions': active_sessions,
+        'previous_sessions': previous_sessions,
+        'lots': lots
+    })
+
 
 LOT_LOCATIONS = [
     {"coordinates": [-93.242878, 44.964812], "name": "Lot A", "totalSpots": 30},
@@ -95,8 +109,14 @@ def create_session(request):
 
 @login_required
 def end_session(request, session_id):
-    session = ParkingSession.objects.get(ParkingSession, id=session_id, user=request.user)
+    try:
+        session = ParkingSession.objects.get(
+            id=session_id,
+            user=request.user
+        )
+    except ParkingSession.DoesNotExist:
+        messages.error(request, "Parking session does not exist.");
+        return redirect('mysessions')
 
     session.end_session()
-
-    return redirect('dashboard')
+    return redirect('mysessions')

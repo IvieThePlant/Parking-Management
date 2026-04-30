@@ -27,4 +27,6 @@ urlpatterns = [
     path('dashboard/', parking_views.dashboard_view, name='dashboard'),
     path('dashboard/map/', parking_views.map_view, name='map'),
     path('create-session/', parking_views.create_session, name='create_session'),
+    path('end-session/<int:session_id>/', parking_views.end_session, name='end_session'),
+    path('mysessions/', parking_views.my_sessions, name='mysessions'),
 ]
