@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#660033]">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Settings</title>
+</head>
+<body class="h-full text-white p-8">
+
+  <img src="https://web.augsburg.edu/marcomm/logo/Augsburg_A_1-color_Maroon.jpg" alt="Augsburg" class="h-10 w-auto">
+
+  <h1 class="text-2xl font-bold mt-6">Settings</h1>
+  <p class="text-gray-300 mt-1">Hello {{ user.first_name }}</p>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p class="text-green-400 text-sm mt-2">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <h2 class="text-lg font-semibold mt-8 mb-2">Change Name</h2>
+  <br>
+  <form method="POST" action="{% url 'change_name' %}" class="space-y-2">
+    {% csrf_token %}
+    <input type="text" name="name" value="{{ user.first_name }}" placeholder="New name"
+      class="block w-64 rounded-md bg-white px-3 py-2 text-gray-900 text-sm">
+    <button type="submit" class="block rounded-md bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800">
+      Update Name
+    </button>
+  </form>
+
+  <h2 class="text-lg font-semibold mt-8 mb-2">Change Password</h2>
+  <br>
+  <form method="POST" action="{% url 'change_password' %}" class="space-y-2">
+    {% csrf_token %}
+    <input type="password" name="old_password" placeholder="Current password"
+      class="block w-64 rounded-md bg-white px-3 py-2 text-gray-900 text-sm">
+    <input type="password" name="new_password1" placeholder="New password"
+      class="block w-64 rounded-md bg-white px-3 py-2 text-gray-900 text-sm">
+    <input type="password" name="new_password2" placeholder="Confirm new password"
+      class="block w-64 rounded-md bg-white px-3 py-2 text-gray-900 text-sm">
+    <button type="submit" class="block rounded-md bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800">
+      Update Password
+    </button>
+  </form>
+
+  <h2 class="text-lg font-semibold mt-8 mb-2">Delete Account</h2>
+  <form method="POST" action="{% url 'delete_account' %}">
+    {% csrf_token %}
+    <button type="submit"
+      onclick="return confirm('Are you sure? This cannot be undone.')"
+      class="block rounded-md bg-red-700 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800">
+      Delete Account
+    </button>
+  </form>
+
+  <a href="{% url 'dashboard' %}" class="inline-block mt-8 text-sm text-gray-300 hover:text-white">← Back to Dashboard</a>
+
+</body>
+</html>

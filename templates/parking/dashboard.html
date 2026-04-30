@@ -40,6 +40,10 @@
     </button>
 <br>
 
+<a href="{% url 'settings' %}">Settings</a>
+<br>
+
+
     <form method="POST" action="{% url 'logout' %}">
       {% csrf_token %}
       <button type="submit">Log Out</button>

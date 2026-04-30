@@ -29,4 +29,8 @@ urlpatterns = [
     ), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('register/', views.register_view, name='register'),
+    path('settings/', views.settings_view, name='settings'),
+    path('settings/change-name/', views.change_name, name='change_name'),
+    path('settings/change-password/', views.change_password, name='change_password'),
+    path('settings/delete-account/', views.delete_account, name='delete_account'),
 ]
